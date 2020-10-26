@@ -57,13 +57,21 @@ public class ShoppingListServlet extends HttpServlet {
         switch (action) {
             case "register":
                 String username = (String) request.getParameter("username");
+                if(username == null || username.length() == 0){
+                    getServletContext().getRequestDispatcher("/WEB-INF/register.jsp")
+                    .forward(request, response);
+                }
+                else{
                 session.setAttribute("username", username);
                 break;
+                }
             case "add":
                 {
                     String item = (String) request.getParameter("item");
+                    if(item.length() > 0){
                     items.add(item);
                     request.setAttribute("item", " ");
+                    }
                     break;
                 }
             case "delete":
